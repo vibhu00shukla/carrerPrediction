@@ -1,0 +1,45 @@
+3. Feature Selection
+Correlation Analysis: A correlation matrix was generated to identify relationships between features, particularly focusing on the target variable (e.g., R1).
+4. Model Implementation
+Different machine learning models were implemented to predict career paths based on the RIASEC framework:
+Model	Description	Rationale for Use
+Linear Regression	A simple regression model predicting continuous outcomes.	Serves as a baseline for comparison with more complex models.
+Decision Tree Regressor	A non-linear model that splits data into branches based on feature values.	Effective for capturing complex relationships in the data.
+K-Nearest Neighbors (KNN)	A model predicting outcomes based on the closest training examples.	Useful for non-parametric predictions and handling multi-dimensional data.
+XGBoost	An optimized gradient boosting framework for regression tasks.	Known for high performance and efficiency in handling large datasets.
+Random Forest	An ensemble method using multiple decision trees to improve accuracy.	Robust against overfitting and effective for high-dimensional spaces.
+5. Model Training and Evaluation
+Train-Test Split: The dataset was split into training (80%) and testing (20%) sets.
+Performance Metrics: Each model's performance was evaluated using:
+Mean Squared Error (MSE)
+Root Mean Squared Error (RMSE)
+R-squared (
+R
+2
+R 
+2
+ ) score
+6. Results Interpretation
+The results from each model were analyzed as follows:
+Linear Regression
+MSE: 0.6657
+RMSE: 0.8159
+R² Score: 0.3306
+Decision Tree Regressor
+MSE: 1.3543
+RMSE: 1.1637
+R² Score: 0.3617
+K-Nearest Neighbors (KNN)
+MSE: 0.7815
+RMSE: 0.8840
+R² Score: 0.2142
+XGBoost
+MSE: 0.6679
+RMSE: 0.8172
+R² Score: 0.3285
+Random Forest Regression
+MSE: 0.6673
+RMSE: 0.8169
+R² Score: 0.3290
+Summary of Findings
+The Decision Tree Regressor exhibited the highest R² score (0.3617), indicating it explained more variance than other models, while KNN had the lowest R² score (0.2142). Overall, all models demonstrated limited ability to explain variance in the target variable, suggesting potential areas for improvement through feature engineering or additional data.

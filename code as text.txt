@@ -1,0 +1,201 @@
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+data = pd.read_csv("data-final.csv", delimiter='\t')
+data
+numeric_data = data.select_dtypes(include=[np.number])
+numeric_data
+data.isnull()
+data.isnull().sum()
+
+data['R1'].isnull().sum()
+data.info()
+data1 = data.iloc[:, :48]
+data1
+data.iloc[:, :48].info()
+data1.isnull().sum()
+data1.describe()
+numeric_data1 = data1.select_dtypes(include=[np.number])
+numeric_data1
+# numeric_data_clean = numeric_data1.dropna()
+# numeric_data_clean
+
+numeric_data1_filled = numeric_data1.fillna(numeric_data1.mean())  # Example: Filling with the mean
+numeric_data1_filled
+from scipy import stats
+z_score = np.abs(stats.zscore(numeric_data1_filled))
+z_score
+threshold = 3
+outliers = numeric_data1[(z_score > threshold).any(axis=1)]
+outliers
+duplicates = numeric_data1_filled[numeric_data1_filled.duplicated()]
+duplicates
+numeric_data1_filled = numeric_data1_filled.drop_duplicates()
+numeric_data1_filled
+
+from sklearn.preprocessing import MinMaxScaler
+numeric_data1_scaler = MinMaxScaler()
+numerical_data1_scaled = numeric_data1_scaler.fit_transform(numeric_data1)
+numerical_data1_scaled_df = pd.DataFrame(numerical_data1_scaled, columns=numeric_data1_filled.columns)
+numerical_data1_scaled_df
+correlation = numerical_data1_scaled_df[numerical_data1_scaled_df.columns[:-1]].corr()
+correlation
+correlation['R1'].sort_values(ascending=False)
+correlation['I1'].sort_values(ascending=False)
+correlation['A1'].sort_values(ascending=False)
+correlation['S1'].sort_values(ascending=False)
+correlation['E1'].sort_values(ascending=False)
+correlation['C1'].sort_values(ascending=False)
+X = numerical_data1_scaled_df.drop(columns=['R1'])
+y = numerical_data1_scaled_df['R1']
+X
+X.isnull().sum()
+X
+from sklearn.preprocessing import StandardScaler
+scalar = StandardScaler()
+X_scaled = scalar.fit_transform(X)
+y = pd.DataFrame(y)
+y_scaled = scalar.fit_transform(y)
+X_scaled
+y_scaled
+X_scaled_df = pd.DataFrame(X_scaled, columns=numerical_data1_scaled_df.columns[:47])
+X_scaled_df
+y_scaled_df = pd.DataFrame(y_scaled, columns=numerical_data1_scaled_df.columns[:1])
+y_scaled_df
+X_scaled_df_filled = X_scaled_df.fillna(X_scaled_df.median())
+y_scaled_df_filled = y_scaled_df.fillna(y_scaled_df.mean())
+X_scaled_df_filled
+y_scaled_df_filled
+X_scaled_df_filled.isnull().sum()
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled_df_filled, y_scaled_df_filled, train_size=0.8, random_state= 42)
+X_train
+X_train.shape
+y_train
+X_test.shape
+Linear Regression
+from sklearn.linear_model import LinearRegression
+numerical_data1_scaled_df_lr = LinearRegression()
+numerical_data1_scaled_df_lr.fit(X_train, y_train)
+y_pred_lr = numerical_data1_scaled_df_lr.predict(X_test)
+from sklearn.metrics import root_mean_squared_error, mean_squared_error, r2_score
+mse_lr = mean_squared_error(y_test, y_pred_lr)
+mse_lr
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred_lr, color='b')
+plt.title("Scatter Plot")
+plt.xlabel("Actual Values")
+plt.ylabel("Predicted Values")
+plt.show()
+rmse_lr = root_mean_squared_error(y_test, y_pred_lr)
+rmse_lr
+r2_score_lr = r2_score(y_test, y_pred_lr)
+r2_score_lr
+Decision Tree Regressor
+from sklearn.tree import DecisionTreeRegressor
+numerical_data1_scaled_df_dt = DecisionTreeRegressor()
+numerical_data1_scaled_df_dt.fit(X_train, y_train)
+y_pred_dt = numerical_data1_scaled_df_dt.predict(X_test)
+y_pred_dt
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_lr, y_pred_dt, color='b')
+plt.title("Plot between predicted values of Linear Regression and Decision Tree")
+plt.xlabel("Predicted values from Linear Regression")
+plt.ylabel("Predicted Values from Decision Tree")
+plt.show()
+mse_dt = mean_squared_error(y_test, y_pred_dt)
+mse_dt
+rmse_dt = root_mean_squared_error(y_test, y_pred_dt)
+rmse_dt
+r2_score_dt = r2_score(y_test, y_pred_dt)
+r2_score_dt
+KNN
+from sklearn.neighbors import KNeighborsRegressor
+numerical_data1_scaled_df_knn = KNeighborsRegressor()
+numerical_data1_scaled_df_knn.fit(X_train, y_train)
+y_pred_knn = numerical_data1_scaled_df_knn.predict(X_test)
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_lr, y_pred_knn, color='b')
+plt.title("Plot between predicted values of Linear Regression and K Nearest Neighbour")
+plt.xlabel("Predicted values from Linear Regression")
+plt.ylabel("Predicted Values from K Nearest Neighbour")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_knn, y_pred_dt, color='b')
+plt.title("Plot between predicted values of K Nearest Neighbour and Decision Tree")
+plt.xlabel("Predicted values from K Nearest Neighbour")
+plt.ylabel("Predicted Values from Decision Tree")
+plt.show()
+mse_knn = mean_squared_error(y_test, y_pred_knn)
+mse_knn
+rmse_knn = root_mean_squared_error(y_test, y_pred_knn)
+rmse_knn
+r2_score_knn = r2_score(y_test, y_pred_knn)
+r2_score_knn
+XGBoost
+!pip install xgboost
+import xgboost as xgb
+numerical_data1_scaled_df_xgb = xgb.XGBRegressor()
+numerical_data1_scaled_df_xgb.fit(X_train, y_train)
+y_pred_xgb = numerical_data1_scaled_df_xgb.predict(X_test)
+y_pred_xgb
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_lr, y_pred_xgb, color='b')
+plt.title("Plot between predicted values of Linear Regression and XGBoost")
+plt.xlabel("Predicted values from Linear Regression")
+plt.ylabel("Predicted Values from XGBoost")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_knn, y_pred_xgb, color='b')
+plt.title("Plot between predicted values of K Nearest Neighbour and XGBoost")
+plt.xlabel("Predicted values from K Nearest Neighbour")
+plt.ylabel("Predicted Values from XGBoost")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_xgb, y_pred_dt, color='b')
+plt.title("Plot between predicted values of XGBoost and Decision Tree")
+plt.xlabel("Predicted Values from XGBoost")
+plt.ylabel("Predicted Values from Decision Tree")
+plt.show()
+mse_xgb = mean_squared_error(y_test, y_pred_xgb)
+mse_xgb
+rmse_xgb = root_mean_squared_error(y_test, y_pred_xgb)
+rmse_xgb
+Random Forest Regression
+from sklearn.ensemble import RandomForestRegressor
+numerical_data1_scaled_df_rf = RandomForestRegressor(n_estimators=100, random_state=42)
+numerical_data1_scaled_df_rf.fit(X_train, y_train)
+y_pred_rf = numerical_data1_scaled_df_rf.predict(X_test)
+mse_rf = mean_squared_error(y_test, y_pred_rf)
+mse_rf
+rmse_rf = root_mean_squared_error(y_test, y_pred_rf)
+rmse_rf
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_rf, y_pred_lr, color='b')
+plt.title("Plot between predicted values of Random Forest Regression and Linear Regression")
+plt.xlabel("Predicted Values from Random Forest Regression")
+plt.ylabel("Predicted Values from Linear Regression")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_rf, y_pred_knn, color='b')
+plt.title("Plot between predicted values of Random Forest Regression and K Nearest Neighbour")
+plt.xlabel("Predicted Values from Random Forest Regression")
+plt.ylabel("Predicted Values from K Nearest Neighbour")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_rf, y_pred_dt, color='b')
+plt.title("Plot between predicted values of Random Forest Regression and Decision Tree")
+plt.xlabel("Predicted Values from Random Forest Regression")
+plt.ylabel("Predicted Values from Decision Tree")
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_rf, y_pred_xgb, color='b')
+plt.title("Plot between predicted values of Random Forest Regression and XGBoost")
+plt.xlabel("Predicted Values from Random Forest Regression")
+plt.ylabel("Predicted Values from XGBoost")
+plt.show()
+
+
+
+

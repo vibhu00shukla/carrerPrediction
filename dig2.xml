@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1363" dy="885" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    
+    <!-- Module 1: Data Gathering and Preprocessing -->
+    <mxCell id="2" value="Module 1: Data Gathering and Preprocessing" style="rounded=1;fillColor=#F8D7DA;strokeColor=#D9534F;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="600" y="100" width="250" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="3" value="Collection of Data" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="100" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="4" value="Data Cleaning and Transformation" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="150" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="5" value="Data Reduction" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="200" width="500" height="40" as="geometry" />
+    </mxCell>
+    
+    <!-- Module 2: Statistical Analysis -->
+    <mxCell id="6" value="Module 2: Statistical Analysis" style="rounded=1;fillColor=#F8D7DA;strokeColor=#D9534F;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="600" y="300" width="250" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="7" value="Exploratory Data Analysis (EDA)" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="300" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="8" value="Confirmatory Factor Analysis (CFA)" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="350" width="500" height="40" as="geometry" />
+    </mxCell>
+    
+    <!-- Module 3: Predictive Analytics -->
+    <mxCell id="9" value="Module 3: Predictive Analytics" style="rounded=1;fillColor=#F8D7DA;strokeColor=#D9534F;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="600" y="450" width="250" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="10" value="Prediction of Career Paths using ML" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="450" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="11" value="Model Evaluation & Interpretation" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="500" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="12" value="Save and Report Results" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="550" width="500" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="13" value="END" style="rounded=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="600" width="500" height="40" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
